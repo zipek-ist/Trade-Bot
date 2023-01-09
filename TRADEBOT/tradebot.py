@@ -24,8 +24,8 @@ fakeassetbalance=0
 while True:
 
     exchange = ccxt.binance({
-        'apiKey': 'iAapVX3si3h9rkbifCATeTeRLW2zMsqj6Myq5otLukCIhllPIpzv8auyZdtlRpmD',
-        'secret': 'DT1TH5I7pmoGWCf0Xrb1RlIOymQjdE1hLzVTdV0FLpRZGdewnzM2jU8ACumboUur',
+        'apiKey': 'Your Api Key',
+        'secret': 'Your Secret',
     })
 
     exchange.load_markets("BTCUSD")
@@ -37,14 +37,14 @@ while True:
         df= pd.DataFrame(data,columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
         return df
 
-    table=fetch("BTCBUSD","1m")
+    table=fetch("BTCBUSD","1m") #can change pair and frame as you wish
 
 
 
     balance = exchange.fetch_balance()
-
+    
     for asset, details in balance.items():
-        if asset=="BUSD":
+        if asset=="BUSD": #can arrange assets name as you wish
             print(f"{asset}: {details['free']}")
 
 
@@ -52,10 +52,10 @@ while True:
     table=table.dropna()
 
     s = stockstats.StockDataFrame(table)
-    rsi=s.get("rsi_14")
+    rsi=s.get("rsi_14") #can change rsi period like "rsi_7" , rsi_5 ...
     bolingertop = s.get('boll_ub')
     bolingerfloor = s.get('boll_lb')
-    cci=s.get("cci_14")
+    cci=s.get("cci_14") #can change cci period like "cci_7" , cci_5 ...
 
 
     def check_rsi(rsi):
